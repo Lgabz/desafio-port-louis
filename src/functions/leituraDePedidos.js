@@ -18,7 +18,7 @@ async function leituraDeTodosOsPedidos (caminhoPasta) {
                 conteudo.push(arquivos);
 
             };
-
+//transforma dados em objetos e os insere em arrays
         for(let item of conteudo){
 
             let novoArray = [];
@@ -31,7 +31,7 @@ async function leituraDeTodosOsPedidos (caminhoPasta) {
             conteudoArrayJSON.push(novoArray)
         };
         
-        
+//valida formato do valor_unitário_produto com casas decimais      
         for (let array of conteudoArrayJSON){
 
            for (let objeto of array){ 
@@ -44,12 +44,35 @@ async function leituraDeTodosOsPedidos (caminhoPasta) {
                 objeto["valor_unitário_produto"] = valorUnitarioDecimal.toFixed(2).replace(".",",");
             }
         };
-
+//organiza em ordem crescente
         for (let array of conteudoArrayJSON){
             
-           array.sort((a, b) => a.número_item - b.número_item)
-
+           array.sort((a, b) => a.número_item - b.número_item);
         }
+//validação de Número_item faltando
+        for (let array of conteudoArrayJSON){
+ 
+            let comparacao = 1;
+
+            for (let objeto of array){
+                let number = parseInt(objeto["número_item"])
+                
+                let resultado = (number - comparacao);
+                
+                
+                if (resultado === 1 || resultado === 0){ 
+                    console.log(resultado)                   
+                }else{
+                    let a = conteudoArrayJSON.indexOf(array)
+                    let mensagem = `número_item ${number-1} deve ser informado no Pedido ${a+1}.`;
+                    console.log(`número_item ${number-1} deve ser informado no Pedido ${a+1}.`)
+                    return mensagem;
+                }
+                comparacao = number
+            }
+        }
+ 
+         
 
 
         return conteudoArrayJSON;
