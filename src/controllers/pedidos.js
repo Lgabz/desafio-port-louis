@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs/promises');
 
-const { leituraDeTodosOsPedidos } = require('../dao/pedidosDAO')
+const { leituraDeTodosOsPedidos } = require('../functions/leituraDePedidos')
 
 
 const listarTodosOsPedidos = async (req, res) => {
