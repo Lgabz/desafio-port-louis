@@ -1,5 +1,7 @@
 require('dotenv').config();
 const fs = require('fs/promises');
+const { array } = require('yup');
+const objetoNotasSchema = require('../validations/objetoNotasSchema')
 
 
 async function leituraDeTodasAsNotas (caminhoPasta) {
@@ -8,7 +10,7 @@ async function leituraDeTodasAsNotas (caminhoPasta) {
         const pasta = await fs.readdir(caminhoPasta);
 
         let conteudo = [];
-        let newConteudo = []
+        let conteudoArrayJSON = []
 
             for(let arquivo of pasta){
 
@@ -27,15 +29,31 @@ async function leituraDeTodasAsNotas (caminhoPasta) {
                 novoArray.push(obj);
 
             };
-            newConteudo.push(novoArray)
+            conteudoArrayJSON.push(novoArray)
         };
 
-        return newConteudo;
+//valida formato do objeto     
+        for (let array of conteudoArrayJSON){
+
+            for (let objeto of array){ 
+                
+                const numeroItemTipoNumber = Math.round(Number.parseInt(objeto["número_item"]));
+                const quantidadeProdutoTipoNumber = Math.round(Number.parseInt(objeto.quantidade_produto));
+
+                objeto["número_item"] = numeroItemTipoNumber
+                objeto.quantidade_produto = quantidadeProdutoTipoNumber
+
+                 await objetoNotasSchema.validate(objeto);
+             }
+         };
+
+        return conteudoArrayJSON;
 
     } catch (error) {
-        console.log(error.message)
+        return error.message
     }
 };
+
 
 module.exports = {
     leituraDeTodasAsNotas

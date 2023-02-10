@@ -4,7 +4,7 @@ const objetoNotasSchema = yup.object().shape({
     id_pedido:
         yup
             .string()
-            .required("O campo id_pedido é obrigatório. "),
+            .required("O campo id_pedido é obrigatório."),
     número_item:
         yup
             .number("O campo deve ser do tipo Número.")

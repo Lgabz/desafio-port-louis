@@ -90,7 +90,7 @@ async function leituraDeTodosOsPedidos (caminhoPasta) {
 //validação de itens repetidos
         return conteudoArrayJSON;
     } catch (error) {
-        console.log(error.message)
+        
         return error.message
     }
 
