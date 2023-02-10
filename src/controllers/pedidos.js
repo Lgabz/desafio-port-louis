@@ -8,7 +8,7 @@ const listarTodosOsPedidos = async (req, res) => {
 
     try {
         
-        const caminhoPasta = 'C:/Users/Gabriel Luiz/Desktop/Teste - Port Louis/Teste/Pedidos'
+        const caminhoPasta = process.env.CAMINHO_PASTA_PEDIDOS;
     
         return res.status(200).json(await leituraDeTodosOsPedidos(caminhoPasta))
 
