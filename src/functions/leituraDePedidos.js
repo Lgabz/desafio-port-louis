@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fs = require('fs/promises');
+const { array } = require('yup');
 const objetoPedidosSchema = require('../validations/objetoPedidosSchema');
 
 
@@ -61,25 +62,38 @@ async function leituraDeTodosOsPedidos (caminhoPasta) {
                 
                 
                 if (resultado === 1 || resultado === 0){ 
-                    console.log(resultado)                   
+                                       
                 }else{
+
                     let a = conteudoArrayJSON.indexOf(array)
                     let mensagem = `número_item ${number-1} deve ser informado no Pedido ${a+1}.`;
-                    console.log(`número_item ${number-1} deve ser informado no Pedido ${a+1}.`)
+                    
                     return mensagem;
                 }
                 comparacao = number
             }
         }
  
-         
-
-
+        for(let array of conteudoArrayJSON){
+            let item = 0
+            for (let objeto of array) {
+                if (objeto["número_item"] !== item){
+                    item = objeto["número_item"];
+                }else{
+                    let a = conteudoArrayJSON.indexOf(array)
+                    let mensagem = `número_item ${objeto["número_item"]} repetido em Pedido ${a+1}.`;
+                    
+                    return(mensagem)
+                }
+            }
+        }
+//validação de itens repetidos
         return conteudoArrayJSON;
     } catch (error) {
         console.log(error.message)
         return error.message
     }
+
 };
 
 
