@@ -1,7 +1,7 @@
 # Desafio Port Louis
 
 **Disclaimer: <br>**
->Essa aPI é um teste feito para aplicação de uma vaga como Desenvolvedor Back-end da empresa Port Louis.
+>Essa API é um teste feito para aplicação de uma vaga como Desenvolvedor Back-end da empresa Port Louis.
 
 ## Descrição do projeto
 
